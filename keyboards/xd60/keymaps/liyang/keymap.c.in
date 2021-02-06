@@ -1,0 +1,16 @@
+#ifdef UNICODEMAP_ENABLE/*{{{*/
+
+typedef enum {
+    BANG,
+    IRONY,
+    SNEK
+} unicode_names_t;
+
+const uint32_t PROGMEM unicode_map[] = {
+    [BANG]  = 0x203D,  // ‽
+    [IRONY] = 0x2E2E,  // ⸮
+    [SNEK]  = 0x1F40D, // 🐍
+};
+
+#endif // UNICODEMAP_ENABLE/*}}}*/
+
