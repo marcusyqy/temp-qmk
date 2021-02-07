@@ -27,8 +27,8 @@
 #endif
 
 typedef struct {
-    char *   symbol;
-    uint32_t code_points[UCIS_MAX_CODE_POINTS];
+    char * symbol;
+    char32_t * code_points;
 } qk_ucis_symbol_t;
 
 typedef struct {
