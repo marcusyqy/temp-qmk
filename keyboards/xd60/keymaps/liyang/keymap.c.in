@@ -1,3 +1,12 @@
+#ifndef QMK_KEYMAP /*{{{ keep Syntastic happy*/
+
+#include <stdint.h>
+#include <stddef.h>
+#include <uchar.h>
+#define PROGMEM
+
+#endif/*}}}*/
+
 #ifdef UNICODEMAP_ENABLE/*{{{*/
 
 typedef enum {
