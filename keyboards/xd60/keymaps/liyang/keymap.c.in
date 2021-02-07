@@ -14,3 +14,31 @@ const uint32_t PROGMEM unicode_map[] = {
 
 #endif // UNICODEMAP_ENABLE/*}}}*/
 
+#ifdef UCIS_ENABLE/*{{{*/
+
+# if 0 // escape /*{{{*/
+
+const qk_ucis_symbol_t ucis_symbol_table[] = {
+    { "poop", U"\U0001F4A9" },           // 💩
+    { "rofl", U"\U0001F923" },           // 🤣
+    { "cuba", U"\U0001F1E8\U0001F1FA" }, // 🇨🇺
+    { "look", U"\u0CA0_\u0CA0" }         // ಠ_ಠ
+};
+/*}}}*/
+
+# elif 0 // literally /*{{{*/
+
+const qk_ucis_symbol_t ucis_symbol_table[] = {
+    { "poop", U"💩" },
+    { "rofl", U"🤣" },
+    { "cuba", U"🇨🇺" },
+    { "look", U"ಠ_ಠ" }
+};
+/*}}}*/
+
+# else // old /*{{{*/
+
+# endif/*}}}*/
+
+#endif // UCIS_ENABLE/*}}}*/
+
