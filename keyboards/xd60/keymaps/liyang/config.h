@@ -11,10 +11,10 @@
 #define MOUSEKEY_WHEEL_INTERVAL 16
 
 // #define MK_COMBINED
-// #define MK_KINETIC_SPEED
+#define MK_KINETIC_SPEED
 // #define MK_3_SPEED
 // #define MK_MOMENTARY_ACCEL
-// #define DEBUG_MOUSE
+#define DEBUG_MOUSE
 
 #undef BACKLIGHT_LEVELS
 #undef RGBLIGHT_HUE_STEP
