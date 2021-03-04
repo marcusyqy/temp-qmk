@@ -69,8 +69,6 @@
  #error serial.c now support ATmega32U4 only
 #endif
 
-#define ALWAYS_INLINE __attribute__((always_inline))
-#define NO_INLINE __attribute__((noinline))
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // parity check
@@ -178,52 +176,44 @@
 static SSTD_t *Transaction_table = NULL;
 static uint8_t Transaction_table_size = 0;
 
-inline static void serial_delay(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
 }
 
-inline static void serial_delay_half1(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 void serial_delay_half1(void) {
   _delay_us(SERIAL_DELAY_HALF1);
 }
 
-inline static void serial_delay_half2(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 void serial_delay_half2(void) {
   _delay_us(SERIAL_DELAY_HALF2);
 }
 
-inline static void serial_output(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 void serial_output(void) {
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
 }
 
 // make the serial pin an input with pull-up resistor
-inline static void serial_input_with_pullup(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 void serial_input_with_pullup(void) {
   SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
-inline static uint8_t serial_read_pin(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 uint8_t serial_read_pin(void) {
   return !!(SERIAL_PIN_INPUT & SERIAL_PIN_MASK);
 }
 
-inline static void serial_low(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 void serial_low(void) {
   SERIAL_PIN_PORT &= ~SERIAL_PIN_MASK;
 }
 
-inline static void serial_high(void) ALWAYS_INLINE;
-inline static
+Q_ALWAYS_INLINE static
 void serial_high(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
@@ -254,8 +244,7 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size)
 }
 
 // Used by the sender to synchronize timing with the reciver.
-static void sync_recv(void) NO_INLINE;
-static
+Q_NEVER_INLINE static
 void sync_recv(void) {
   for (uint8_t i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
   }
@@ -265,8 +254,7 @@ void sync_recv(void) {
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
-static void sync_send(void) NO_INLINE;
-static
+Q_NEVER_INLINE static
 void sync_send(void) {
   serial_low();
   serial_delay();
@@ -274,7 +262,7 @@ void sync_send(void) {
 }
 
 // Reads a byte from the serial line
-static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) NO_INLINE;
+Q_NEVER_INLINE
 static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
     uint8_t byte, i, p, pb;
 
@@ -301,7 +289,7 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
 }
 
 // Sends a byte with MSB ordering
-void serial_write_chunk(uint8_t data, uint8_t bit) NO_INLINE;
+Q_NEVER_INLINE
 void serial_write_chunk(uint8_t data, uint8_t bit) {
     uint8_t b, p;
     for( p = PARITY, b = 1<<(bit-1); b ; b >>= 1) {
@@ -320,8 +308,7 @@ void serial_write_chunk(uint8_t data, uint8_t bit) {
     serial_low(); // sync_send() / senc_recv() need raise edge
 }
 
-static void serial_send_packet(uint8_t *buffer, uint8_t size) NO_INLINE;
-static
+Q_NEVER_INLINE static
 void serial_send_packet(uint8_t *buffer, uint8_t size) {
   for (uint8_t i = 0; i < size; ++i) {
     uint8_t data;
@@ -331,8 +318,7 @@ void serial_send_packet(uint8_t *buffer, uint8_t size) {
   }
 }
 
-static uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) NO_INLINE;
-static
+Q_NEVER_INLINE static
 uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
   uint8_t pecount = 0;
   for (uint8_t i = 0; i < size; ++i) {
