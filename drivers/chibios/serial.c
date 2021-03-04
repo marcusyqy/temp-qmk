@@ -96,7 +96,8 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size) {
 }
 
 // Used by the master to synchronize timing with the slave.
-static void __attribute__((noinline)) sync_recv(void) {
+Q_NEVER_INLINE
+static void sync_recv(void) {
     serial_input();
     // This shouldn't hang if the slave disconnects because the
     // serial line will float to high if the slave does disconnect.
@@ -107,7 +108,8 @@ static void __attribute__((noinline)) sync_recv(void) {
 }
 
 // Used by the slave to send a synchronization signal to the master.
-static void __attribute__((noinline)) sync_send(void) {
+Q_NEVER_INLINE
+static void sync_send(void) {
     serial_output();
 
     serial_low();
@@ -117,7 +119,8 @@ static void __attribute__((noinline)) sync_send(void) {
 }
 
 // Reads a byte from the serial line
-static uint8_t __attribute__((noinline)) serial_read_byte(void) {
+Q_NEVER_INLINE
+static uint8_t serial_read_byte(void) {
     uint8_t byte = 0;
     serial_input();
     for (uint8_t i = 0; i < 8; ++i) {
@@ -129,7 +132,8 @@ static uint8_t __attribute__((noinline)) serial_read_byte(void) {
 }
 
 // Sends a byte with MSB ordering
-static void __attribute__((noinline)) serial_write_byte(uint8_t data) {
+Q_NEVER_INLINE
+static void serial_write_byte(uint8_t data) {
     uint8_t b = 8;
     serial_output();
     while (b--) {
