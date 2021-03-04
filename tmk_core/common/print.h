@@ -85,18 +85,6 @@ void print_set_sendchar(sendchar_func_t func);
 #define print_bin_reverse8(i) xprintf("%08b", bitrev(i))
 #define print_bin_reverse16(i) xprintf("%016b", bitrev16(i))
 #define print_bin_reverse32(i) xprintf("%032lb", bitrev32(i))
-/* print value utility */
-#define print_val_dec(v) xprintf(#v ": %u\n", v)
-#define print_val_decs(v) xprintf(#v ": %d\n", v)
-#define print_val_hex8(v) xprintf(#v ": %X\n", v)
-#define print_val_hex16(v) xprintf(#v ": %02X\n", v)
-#define print_val_hex32(v) xprintf(#v ": %04lX\n", v)
-#define print_val_bin8(v) xprintf(#v ": %08b\n", v)
-#define print_val_bin16(v) xprintf(#v ": %016b\n", v)
-#define print_val_bin32(v) xprintf(#v ": %032lb\n", v)
-#define print_val_bin_reverse8(v) xprintf(#v ": %08b\n", bitrev(v))
-#define print_val_bin_reverse16(v) xprintf(#v ": %016b\n", bitrev16(v))
-#define print_val_bin_reverse32(v) xprintf(#v ": %032lb\n", bitrev32(v))
 
 // User print disables the normal print messages in the body of QMK/TMK code and
 // is meant as a lightweight alternative to NOPRINT. Use it when you only want to do
@@ -121,15 +109,3 @@ void print_set_sendchar(sendchar_func_t func);
 #define uprint_bin_reverse8(i) uprintf("%08b", bitrev(i))
 #define uprint_bin_reverse16(i) uprintf("%016b", bitrev16(i))
 #define uprint_bin_reverse32(i) uprintf("%032lb", bitrev32(i))
-/* print value utility */
-#define uprint_val_dec(v) uprintf(#v ": %u\n", v)
-#define uprint_val_decs(v) uprintf(#v ": %d\n", v)
-#define uprint_val_hex8(v) uprintf(#v ": %X\n", v)
-#define uprint_val_hex16(v) uprintf(#v ": %02X\n", v)
-#define uprint_val_hex32(v) uprintf(#v ": %04lX\n", v)
-#define uprint_val_bin8(v) uprintf(#v ": %08b\n", v)
-#define uprint_val_bin16(v) uprintf(#v ": %016b\n", v)
-#define uprint_val_bin32(v) uprintf(#v ": %032lb\n", v)
-#define uprint_val_bin_reverse8(v) uprintf(#v ": %08b\n", bitrev(v))
-#define uprint_val_bin_reverse16(v) uprintf(#v ": %016b\n", bitrev16(v))
-#define uprint_val_bin_reverse32(v) uprintf(#v ": %032lb\n", bitrev32(v))

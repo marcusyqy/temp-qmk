@@ -1,6 +1,7 @@
 #pragma once
 
 #include <inttypes.h>
+#include "util.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,7 +16,8 @@ extern "C" {
 
 #    define CLOCK_DELAY_NOP8 "nop\n\t nop\n\t nop\n\t nop\n\t   nop\n\t nop\n\t nop\n\t nop\n\t"
 
-__attribute__((always_inline)) static inline void wait_cpuclock_allnop(unsigned int n) { /* n: 1..135 */
+Q_ALWAYS_INLINE
+static void wait_cpuclock_allnop(unsigned int n) { /* n: 1..135 */
     /* The argument n must be a constant expression.
      * That way, compiler optimization will remove unnecessary code. */
     if (n < 1) {
